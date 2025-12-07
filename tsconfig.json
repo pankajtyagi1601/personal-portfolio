@@ -14,7 +14,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "types": ["node", "react", "jest"]
+    "types": ["node", "react"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
