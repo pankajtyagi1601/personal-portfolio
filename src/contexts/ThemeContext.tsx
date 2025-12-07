@@ -25,7 +25,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const DEFAULT_THEME = "#fb923c"; // Default orange color
+const DEFAULT_THEME = "#3b82f6"; // Default blue color
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,

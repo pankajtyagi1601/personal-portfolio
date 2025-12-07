@@ -82,6 +82,7 @@ export const PROJECTS: Project[] = [
       "Real-time chat application with user authentication and group chat features. Built with the MERN stack, featuring secure authentication, real-time messaging, and scalable architecture.",
     technologies: ["MERN", "JWT", "Socket.io", "Redux", "Render"],
     link: "https://igluz-chatapp.onrender.com/",
+    githubLink: "https://github.com/pankajtyagi1601/MERN-ChatApp",
   },
 ];
 

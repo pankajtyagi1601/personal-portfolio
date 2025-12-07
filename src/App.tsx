@@ -26,6 +26,9 @@ const App = () => {
 
   const rgb = hexToRgb(themeColor);
 
+  // Safely access import.meta.env, providing a fallback type to satisfy TypeScript
+  const showThemePicker = import.meta.env.VITE_SHOW_THEME_PICKER === "true";
+
   return (
     <>
       <div
@@ -60,7 +63,7 @@ const App = () => {
           <Projects />
           <Contact />
           <ScrollToTop />
-          <ThemeColorPicker />
+          {showThemePicker && <ThemeColorPicker />}
         </div>
       </div>
     </>
