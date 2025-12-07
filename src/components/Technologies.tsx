@@ -9,6 +9,7 @@ import { SiDocker } from "react-icons/si";
 import { SiMysql } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext";
 
 type TechIconProps = {
   Icon: React.ElementType;
@@ -21,7 +22,6 @@ const iconsVariants = (duration: number) => ({
   initial: { y: -10 },
   animate: {
     y: [10, -15],
-    rotate: [-2, 2],
     scale: [1, 1.05, 1],
     transition: {
       duration: duration,
@@ -55,35 +55,54 @@ const TechIcon: React.FC<TechIconProps> = ({
   color,
   label,
   duration,
-}) => (
-  <motion.div
-    variants={iconsVariants(duration)}
-    initial="initial"
-    animate="animate"
-    whileHover={{
-      scale: 1.15,
-      rotate: [0, -10, 10, 0],
-      transition: { duration: 0.4 },
-      y: -10,
-    }}
-    className="group relative rounded-2xl border-2 border-neutral-700 bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 cursor-pointer shadow-lg hover:shadow-xl hover:border-orange-500/50 transition-all duration-300"
-    aria-label={`${label} icon`}
-  >
-    <Icon
-      className="text-5xl sm:text-6xl transition-transform duration-300 group-hover:scale-110"
-      style={{ color }}
-    />
-    <motion.span
-      initial={{ opacity: 0, y: 10 }}
-      whileHover={{ opacity: 1, y: 0 }}
-      className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap border border-orange-500/30"
+}) => {
+  const { themeColor } = useTheme();
+  return (
+    <motion.div
+      variants={iconsVariants(duration)}
+      initial="initial"
+      animate="animate"
+      whileHover={{
+        scale: 1.15,
+        transition: { duration: 0.4 },
+        y: -10,
+      }}
+      className="group relative rounded-2xl border-2 border-neutral-700 bg-linear-to-br from-neutral-800 to-neutral-900 p-6 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300"
+      style={{
+        borderColor: "rgb(55 65 81)",
+      }}
+      onHoverStart={(e) => {
+        const target = e.currentTarget as HTMLDivElement | null;
+        if (target) {
+          target.style.borderColor = `${themeColor}80`;
+        }
+      }}
+      onHoverEnd={(e) => {
+        const target = e.currentTarget as HTMLDivElement | null;
+        if (target) {
+          target.style.borderColor = "rgb(55 65 81)";
+        }
+      }}
+      aria-label={`${label} icon`}
     >
-      {label}
-    </motion.span>
-  </motion.div>
-);
+      <Icon
+        className="text-5xl sm:text-6xl transition-transform duration-300 group-hover:scale-110"
+        style={{ color }}
+      />
+      <motion.span
+        initial={{ opacity: 0, y: 10 }}
+        whileHover={{ opacity: 1, y: 0 }}
+        className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap border"
+        style={{ borderColor: `${themeColor}4d` }}
+      >
+        {label}
+      </motion.span>
+    </motion.div>
+  );
+};
 
 const Technologies: React.FC = () => {
+  const { themeColor } = useTheme();
   return (
     <div className="border-b border-neutral-800 pb-24" id="technologies">
       <motion.h2
@@ -93,7 +112,13 @@ const Technologies: React.FC = () => {
         viewport={{ once: true }}
         className="my-20 text-center text-4xl sm:text-5xl font-thin"
       >
-        <span className="bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent">
+        <span
+          className="bg-clip-text text-transparent"
+          style={{
+            backgroundImage: `linear-gradient(to right, ${themeColor}, ${themeColor})`,
+            WebkitBackgroundClip: "text",
+          }}
+        >
           Technologies
         </span>{" "}
         I Work With

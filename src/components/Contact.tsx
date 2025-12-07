@@ -1,6 +1,7 @@
 import { CONTACT } from "../constants";
 import { motion } from "framer-motion";
 import { HiLocationMarker, HiPhone, HiMail } from "react-icons/hi";
+import { useTheme } from "../contexts/ThemeContext";
 
 // Define the Contact data type
 interface ContactProps {
@@ -10,6 +11,7 @@ interface ContactProps {
 }
 
 const Contact: React.FC = () => {
+  const { themeColor } = useTheme();
   const contactInfo: ContactProps = CONTACT;
 
   const contactItems = [
@@ -18,21 +20,18 @@ const Contact: React.FC = () => {
       label: "Location",
       value: contactInfo.address,
       href: null,
-      color: "text-orange-400",
     },
     {
       icon: HiPhone,
       label: "Phone",
       value: contactInfo.phoneNo,
       href: `tel:${contactInfo.phoneNo}`,
-      color: "text-orange-400",
     },
     {
       icon: HiMail,
       label: "Email",
       value: contactInfo.email,
       href: `mailto:${contactInfo.email}`,
-      color: "text-orange-400",
     },
   ];
 
@@ -53,7 +52,13 @@ const Contact: React.FC = () => {
         className="text-4xl sm:text-5xl text-center font-thin mb-16 pt-16"
       >
         Get in{" "}
-        <span className="bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent">
+        <span
+          className="bg-clip-text text-transparent"
+          style={{
+            backgroundImage: `linear-gradient(to right, ${themeColor}, ${themeColor})`,
+            WebkitBackgroundClip: "text",
+          }}
+        >
           Touch
         </span>
       </motion.h2>
@@ -68,12 +73,24 @@ const Contact: React.FC = () => {
             whileHover={{ scale: 1.05, y: -5 }}
             className="group"
           >
-            <div className="bg-gradient-to-br from-neutral-900/50 to-neutral-800/30 border border-orange-500/20 rounded-2xl p-6 hover:border-orange-500/40 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 h-full">
+            <div
+              className="bg-linear-to-br from-neutral-900/50 to-neutral-800/30 border rounded-2xl p-6 transition-all duration-300 h-full"
+              style={{ borderColor: `${themeColor}33` }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = `${themeColor}66`;
+                e.currentTarget.style.boxShadow = `0 20px 25px -5px ${themeColor}1a, 0 10px 10px -5px ${themeColor}1a`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = `${themeColor}33`;
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
               <div className="flex flex-col items-center text-center">
                 <motion.div
-                  className={`${item.color} mb-4`}
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
+                  className="mb-4"
+                  style={{ color: themeColor }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <item.icon size={32} />
                 </motion.div>
@@ -83,7 +100,14 @@ const Contact: React.FC = () => {
                 {item.href ? (
                   <a
                     href={item.href}
-                    className="text-gray-400 hover:text-orange-300 transition-colors duration-300 break-all"
+                    className="text-gray-400 transition-colors duration-300 break-all"
+                    style={{ color: "inherit" }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = themeColor;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = "rgb(156 163 175)";
+                    }}
                   >
                     {item.value}
                   </a>

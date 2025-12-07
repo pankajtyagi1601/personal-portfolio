@@ -1,6 +1,7 @@
 import { HERO_CONTENT } from "../constants";
 import profilePic from "../assets/Profile.png";
 import { motion, Variants } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext";
 
 // Define animation variant types
 const textVariants: Variants = {
@@ -30,6 +31,8 @@ const imageVariants: Variants = {
 };
 
 const Hero: React.FC = () => {
+  const { themeColor } = useTheme();
+
   return (
     <section className="container mx-auto px-4 sm:px-20 pt-24 pb-16 lg:pb-24 border-b border-neutral-900">
       <div className="flex flex-wrap items-center">
@@ -44,7 +47,13 @@ const Hero: React.FC = () => {
             >
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-thin text-gray-300 tracking-tight lg:mt-16 text-center lg:text-left mb-4">
                 Hi, I'm{" "}
-                <span className="bg-gradient-to-r from-orange-300 via-orange-400 to-orange-300 bg-clip-text text-transparent font-normal">
+                <span
+                  className="bg-clip-text text-transparent font-normal"
+                  style={{
+                    backgroundImage: `linear-gradient(to right, ${themeColor}, ${themeColor})`,
+                    WebkitBackgroundClip: "text",
+                  }}
+                >
                   Pankaj Tyagi
                 </span>
               </h1>
@@ -57,9 +66,21 @@ const Hero: React.FC = () => {
               animate="visible"
               className="w-full"
             >
-              <h2 className="bg-gradient-to-r from-orange-200 via-orange-300 to-orange-200 bg-clip-text text-3xl sm:text-4xl lg:text-5xl tracking-tight text-transparent text-center lg:text-left font-medium">
+              <h2
+                className="bg-clip-text text-3xl sm:text-4xl lg:text-5xl tracking-tight text-transparent text-center lg:text-left font-medium"
+                style={{
+                  backgroundImage: `linear-gradient(to right, ${themeColor}, ${themeColor})`,
+                  WebkitBackgroundClip: "text",
+                }}
+              >
                 Full Stack Developer{" "}
-                <span className="bg-gradient-to-r from-orange-300 via-orange-400 to-orange-300 bg-clip-text text-transparent">
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: `linear-gradient(to right, ${themeColor}, ${themeColor})`,
+                    WebkitBackgroundClip: "text",
+                  }}
+                >
                   & Programmer
                 </span>
               </h2>
@@ -86,7 +107,11 @@ const Hero: React.FC = () => {
                 href="#projects"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-lg font-medium shadow-lg shadow-orange-500/50 hover:shadow-orange-500/70 transition-all duration-300"
+                className="px-6 py-3 text-white rounded-lg font-medium shadow-lg transition-all duration-300"
+                style={{
+                  backgroundColor: themeColor,
+                  boxShadow: `0 10px 15px -3px ${themeColor}50, 0 4px 6px -2px ${themeColor}50`,
+                }}
               >
                 View Projects
               </motion.a>
@@ -94,7 +119,11 @@ const Hero: React.FC = () => {
                 href="#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 border-2 border-orange-400 text-orange-300 rounded-lg font-medium hover:bg-orange-400/10 transition-all duration-300"
+                className="px-6 py-3 border-2 rounded-lg font-medium transition-all duration-300"
+                style={{
+                  borderColor: themeColor,
+                  color: themeColor,
+                }}
               >
                 Get in Touch
               </motion.a>
@@ -109,16 +138,24 @@ const Hero: React.FC = () => {
               animate="visible"
               className="relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-orange-600/20 rounded-2xl blur-2xl -z-10"></div>
+              <div
+                className="absolute inset-0 rounded-2xl blur-2xl -z-10"
+                style={{
+                  background: `linear-gradient(to right, ${themeColor}33, ${themeColor}4d)`,
+                }}
+              ></div>
               <motion.img
-                whileHover={{ 
-                  scale: 1.05, 
+                whileHover={{
+                  scale: 1.05,
                   transition: { duration: 0.3 },
-                  boxShadow: "0 20px 40px rgba(251, 146, 60, 0.3)"
                 }}
                 src={profilePic}
                 alt="Pankaj Tyagi - Full Stack Developer"
-                className="w-2/3 sm:w-3/4 h-auto object-cover rounded-2xl shadow-2xl border-2 border-orange-500/30"
+                className="w-2/3 sm:w-3/4 h-auto object-cover rounded-2xl shadow-2xl border-2"
+                style={{
+                  borderColor: `${themeColor}4d`,
+                  boxShadow: `0 20px 40px ${themeColor}4d`,
+                }}
                 loading="eager"
               />
             </motion.div>

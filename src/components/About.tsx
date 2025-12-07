@@ -2,9 +2,11 @@ import aboutImg from "../assets/about.jpg";
 import { ABOUT_TEXT } from "../constants";
 import { motion } from "framer-motion";
 import React from "react";
+import { useTheme } from "../contexts/ThemeContext";
 
 // Functional component with TypeScript
 const About: React.FC = () => {
+  const { themeColor } = useTheme();
   return (
     <div className="border-b border-neutral-900 pb-16" id="about">
       <motion.h2
@@ -15,7 +17,13 @@ const About: React.FC = () => {
         className="my-20 text-center text-4xl sm:text-5xl font-thin"
       >
         About
-        <span className="bg-linear-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent">
+        <span
+          className="bg-clip-text text-transparent"
+          style={{
+            backgroundImage: `linear-gradient(to right, ${themeColor}, ${themeColor})`,
+            WebkitBackgroundClip: "text",
+          }}
+        >
           {" "}
           Me
         </span>
@@ -31,11 +39,17 @@ const About: React.FC = () => {
             viewport={{ once: true }}
             className="flex items-center justify-center relative"
           >
-            <div className="absolute inset-0 bg-linear-to-r from-orange-400/20 to-orange-600/20 rounded-3xl blur-3xl -z-10"></div>
+            <div
+              className="absolute inset-0 rounded-3xl blur-3xl -z-10"
+              style={{
+                background: `linear-gradient(to right, ${themeColor}33, ${themeColor}4d)`,
+              }}
+            ></div>
             <motion.img
               src={aboutImg}
               alt="about"
-              className="rounded-3xl shadow-2xl border-2 border-orange-500/20"
+              className="rounded-3xl shadow-2xl border-2"
+              style={{ borderColor: `${themeColor}33` }}
               whileHover={{
                 scale: 1.02,
                 transition: { duration: 0.3 },
@@ -64,13 +78,22 @@ const About: React.FC = () => {
                 viewport={{ once: true }}
                 className="flex flex-wrap gap-3 justify-center lg:justify-start"
               >
-                <span className="px-4 py-2 bg-neutral-900/50 border border-orange-500/30 rounded-lg text-orange-300 text-sm">
+                <span
+                  className="px-4 py-2 bg-neutral-900/50 border rounded-lg text-sm"
+                  style={{ borderColor: `${themeColor}4d`, color: themeColor }}
+                >
                   Problem Solver
                 </span>
-                <span className="px-4 py-2 bg-neutral-900/50 border border-orange-500/30 rounded-lg text-orange-300 text-sm">
+                <span
+                  className="px-4 py-2 bg-neutral-900/50 border rounded-lg text-sm"
+                  style={{ borderColor: `${themeColor}4d`, color: themeColor }}
+                >
                   Team Player
                 </span>
-                <span className="px-4 py-2 bg-neutral-900/50 border border-orange-500/30 rounded-lg text-orange-300 text-sm">
+                <span
+                  className="px-4 py-2 bg-neutral-900/50 border rounded-lg text-sm"
+                  style={{ borderColor: `${themeColor}4d`, color: themeColor }}
+                >
                   Continuous Learner
                 </span>
               </motion.div>

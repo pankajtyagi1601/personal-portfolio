@@ -1,6 +1,7 @@
 import { PROJECTS } from "../constants";
 import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa6";
+import { useTheme } from "../contexts/ThemeContext";
 
 type Project = {
   image: string;
@@ -12,6 +13,7 @@ type Project = {
 };
 
 const Projects = () => {
+  const { themeColor } = useTheme();
   return (
     <div className="border-b border-neutral-900 pb-24" id="projects">
       <motion.h2
@@ -22,7 +24,13 @@ const Projects = () => {
         className="my-20 text-center text-4xl sm:text-5xl font-thin"
       >
         Featured{" "}
-        <span className="bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent">
+        <span
+          className="bg-clip-text text-transparent"
+          style={{
+            backgroundImage: `linear-gradient(to right, ${themeColor}, ${themeColor})`,
+            WebkitBackgroundClip: "text",
+          }}
+        >
           Projects
         </span>
       </motion.h2>
@@ -36,17 +44,34 @@ const Projects = () => {
             transition={{ duration: 0.6, delay: index * 0.15 }}
             viewport={{ once: true }}
           >
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-center bg-gradient-to-br from-neutral-900/50 to-neutral-800/30 border border-orange-500/20 rounded-2xl p-6 lg:p-8 hover:border-orange-500/40 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300">
+            <div
+              className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-center bg-linear-to-br from-neutral-900/50 to-neutral-800/30 border rounded-2xl p-6 lg:p-8 transition-all duration-300"
+              style={{ borderColor: `${themeColor}33` }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = `${themeColor}66`;
+                e.currentTarget.style.boxShadow = `0 20px 25px -5px ${themeColor}1a, 0 10px 10px -5px ${themeColor}1a`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = `${themeColor}33`;
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
               <motion.div
-                className="w-full lg:w-1/3 flex-shrink-0"
-                whileHover={{ scale: 1.05, rotate: 2 }}
+                className="w-full lg:w-1/3 shrink-0"
+                whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <div className="relative overflow-hidden rounded-xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-orange-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: `linear-gradient(to right, ${themeColor}33, ${themeColor}4d)`,
+                    }}
+                  ></div>
                   <img
                     src={project.image}
-                    className="w-full h-48 lg:h-56 object-cover rounded-xl border-2 border-orange-500/20"
+                    className="w-full h-48 lg:h-56 object-cover rounded-xl border-2"
+                    style={{ borderColor: `${themeColor}33` }}
                     alt={project.title}
                   />
                 </div>
@@ -60,13 +85,29 @@ const Projects = () => {
                 viewport={{ once: true }}
               >
                 <div className="flex items-start justify-between gap-4 mb-3">
-                  <h6 className="font-semibold text-xl text-gray-200 group-hover:text-orange-300 transition-colors duration-300">
+                  <h6
+                    className="font-semibold text-xl text-gray-200 transition-colors duration-300"
+                    style={{ color: "inherit" }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = themeColor;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = "rgb(229 231 235)";
+                    }}
+                  >
                     {project.link === "#" ? (
                       <button
                         onClick={() =>
                           window.scrollTo({ top: 0, behavior: "smooth" })
                         }
-                        className="hover:text-orange-300 transition-colors duration-300"
+                        className="transition-colors duration-300"
+                        style={{ color: "inherit" }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = themeColor;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = "rgb(229 231 235)";
+                        }}
                       >
                         {project.title}
                       </button>
@@ -75,7 +116,14 @@ const Projects = () => {
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-orange-300 transition-colors duration-300 inline-flex items-center gap-2"
+                        className="transition-colors duration-300 inline-flex items-center gap-2"
+                        style={{ color: "inherit" }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = themeColor;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = "rgb(229 231 235)";
+                        }}
                       >
                         {project.title}
                         <span className="text-sm">↗</span>
@@ -89,9 +137,16 @@ const Projects = () => {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-orange-300 transition-colors duration-300 flex-shrink-0"
+                      className="text-gray-400 transition-colors duration-300 shrink-0"
+                      style={{ color: "inherit" }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = themeColor;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "rgb(156 163 175)";
+                      }}
                       aria-label={`View ${project.title} on GitHub`}
-                      whileHover={{ scale: 1.2, rotate: 5 }}
+                      whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
                     >
                       <FaGithub size={24} />
@@ -112,7 +167,19 @@ const Projects = () => {
                         delay: index * 0.15 + techIndex * 0.05,
                       }}
                       viewport={{ once: true }}
-                      className="px-3 py-1 rounded-lg bg-neutral-800 border border-orange-500/30 text-sm font-medium text-orange-200 hover:bg-orange-500/10 hover:border-orange-500/50 transition-all duration-300"
+                      className="px-3 py-1 rounded-lg bg-neutral-800 border text-sm font-medium transition-all duration-300"
+                      style={{
+                        borderColor: `${themeColor}4d`,
+                        color: `${themeColor}dd`,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${themeColor}1a`;
+                        e.currentTarget.style.borderColor = `${themeColor}80`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "rgb(31 41 55)";
+                        e.currentTarget.style.borderColor = `${themeColor}4d`;
+                      }}
                       whileHover={{ scale: 1.1, y: -2 }}
                     >
                       {tech}

@@ -2,6 +2,7 @@ import { TiDocumentText } from "react-icons/ti";
 import { FaLinkedin, FaGithub, FaDiscord, FaWhatsapp } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext";
 const Resume = "Resume.pdf";
 
 // Define props type for social link component
@@ -11,26 +12,51 @@ interface SocialLinkProps {
   label: string;
 }
 
-const SocialLink: React.FC<SocialLinkProps> = ({ href, Icon, label }) => (
-  <motion.div
-    className="text-gray-300 hover:text-orange-300 relative group transition-colors duration-300"
-    whileHover={{
-      scale: 1.1,
-      rotate: [0, -5, 5, 0],
-      transition: { duration: 0.3 },
-    }}
-    whileTap={{ scale: 0.9 }}
-  >
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      <Icon size={24} />
-    </a>
-    <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs py-1 px-2 rounded border border-orange-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
-      {label}
-    </span>
-  </motion.div>
-);
+const SocialLink: React.FC<SocialLinkProps> = ({ href, Icon, label }) => {
+  const { themeColor } = useTheme();
+  return (
+    <motion.div
+      className="text-gray-300 relative group transition-colors duration-300"
+      style={
+        {
+          ["--hover-color" as string]: themeColor,
+        } as React.CSSProperties
+      }
+      whileHover={{
+        scale: 1.1,
+        transition: { duration: 0.3 },
+      }}
+      whileTap={{ scale: 0.9 }}
+    >
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: "inherit" }}
+      >
+        <Icon
+          size={24}
+          className="group-hover:transition-colors"
+          style={{ color: "inherit" }}
+        />
+      </a>
+      <style>{`
+        .group:hover {
+          color: ${themeColor} !important;
+        }
+      `}</style>
+      <span
+        className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs py-1 px-2 rounded border opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none"
+        style={{ borderColor: `${themeColor}4d` }}
+      >
+        {label}
+      </span>
+    </motion.div>
+  );
+};
 
 const Navbar: React.FC = () => {
+  const { themeColor } = useTheme();
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
 
@@ -42,6 +68,19 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : { r: 251, g: 146, b: 60 };
+  };
+
+  const rgb = hexToRgb(themeColor);
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -49,9 +88,10 @@ const Navbar: React.FC = () => {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-neutral-900/80 backdrop-blur-md border-b border-orange-500/20 shadow-lg"
+          ? "bg-neutral-900/80 backdrop-blur-md border-b shadow-lg"
           : "bg-transparent"
       }`}
+      style={scrolled ? { borderColor: `${themeColor}33` } : {}}
     >
       <div className="container mx-auto px-4 sm:px-8">
         <div className="flex justify-between items-center w-full py-4">
@@ -63,7 +103,10 @@ const Navbar: React.FC = () => {
           >
             <a
               href="#"
-              className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent"
+              className="text-xl sm:text-2xl font-semibold bg-clip-text text-transparent"
+              style={{
+                backgroundImage: `linear-gradient(to right, ${themeColor}, ${themeColor})`,
+              }}
             >
               PT
             </a>
@@ -72,10 +115,19 @@ const Navbar: React.FC = () => {
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="text-gray-300 hover:text-orange-300 relative group cursor-pointer transition-colors duration-300"
+              className="text-gray-300 relative group cursor-pointer transition-colors duration-300"
+              style={{ color: "inherit" }}
             >
+              <style>{`
+                .group:hover {
+                  color: ${themeColor} !important;
+                }
+              `}</style>
               <TiDocumentText size={28} onClick={() => setIsResumeOpen(true)} />
-              <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs py-1 px-2 rounded border border-orange-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+              <span
+                className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs py-1 px-2 rounded border opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none"
+                style={{ borderColor: `${themeColor}4d` }}
+              >
                 Resume
               </span>
             </motion.div>
@@ -117,14 +169,26 @@ const Navbar: React.FC = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-neutral-900 p-4 rounded-2xl w-full max-w-5xl h-[90vh] relative border border-orange-500/20 shadow-2xl"
+            className="bg-neutral-900 p-4 rounded-2xl w-full max-w-5xl h-[90vh] relative border shadow-2xl"
+            style={{ borderColor: `${themeColor}33` }}
           >
             <motion.button
-              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsResumeOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-orange-300 transition-colors duration-200 z-10 bg-neutral-800 rounded-full p-2 border border-orange-500/20"
+              className="absolute top-4 right-4 text-gray-400 transition-colors duration-200 z-10 bg-neutral-800 rounded-full p-2 border"
+              style={
+                {
+                  borderColor: `${themeColor}33`,
+                  ["--hover-color" as string]: themeColor,
+                } as React.CSSProperties
+              }
             >
+              <style>{`
+                button:hover {
+                  color: ${themeColor} !important;
+                }
+              `}</style>
               ✕
             </motion.button>
             <iframe
