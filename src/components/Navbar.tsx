@@ -1,7 +1,7 @@
 import { TiDocumentText } from "react-icons/ti";
 import { FaLinkedin, FaGithub, FaDiscord, FaWhatsapp } from "react-icons/fa6";
-import { useState } from "react";
-import { motion } from "framer-motion"; // Add this import at the top
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 const Resume = "Resume.pdf";
 
 // Define props type for social link component
@@ -12,17 +12,19 @@ interface SocialLinkProps {
 }
 
 const SocialLink: React.FC<SocialLinkProps> = ({ href, Icon, label }) => (
-  <motion.div 
-    className="text-gray-900 hover:text-white relative group"
-    whileHover={{ 
-      rotate: [0, -10, 10, -10, 0],
-      transition: { duration: 0.5 }
+  <motion.div
+    className="text-gray-300 hover:text-orange-300 relative group transition-colors duration-300"
+    whileHover={{
+      scale: 1.1,
+      rotate: [0, -5, 5, 0],
+      transition: { duration: 0.3 },
     }}
+    whileTap={{ scale: 0.9 }}
   >
     <a href={href} target="_blank" rel="noopener noreferrer">
-      <Icon size={28} />
+      <Icon size={24} />
     </a>
-    <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs py-1 px-2 rounded border border-orange-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
       {label}
     </span>
   </motion.div>
@@ -30,62 +32,111 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, Icon, label }) => (
 
 const Navbar: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="flex justify-between items-center w-full">
-      <div className="flex flex-shrink-0 items-center">
-        {/*Logo */}
-        {/* <img className="mx-2 w-10" src={logo} alt="logo" /> */}
-      </div>
-      <div className="flex items-center justify-center gap-5 p-4 text-2xl sm:m-8 mx-auto">
-        <div className="text-gray-900 hover:text-white relative group">
-          <TiDocumentText size={32} onClick={() => setIsResumeOpen(true)} />
-          <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Resume
-          </span>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-neutral-900/80 backdrop-blur-md border-b border-orange-500/20 shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-4 sm:px-8">
+        <div className="flex justify-between items-center w-full py-4">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center"
+          >
+            <a
+              href="#"
+              className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent"
+            >
+              PT
+            </a>
+          </motion.div>
+          <div className="flex items-center justify-center gap-4 sm:gap-5 text-xl sm:text-2xl">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="text-gray-300 hover:text-orange-300 relative group cursor-pointer transition-colors duration-300"
+            >
+              <TiDocumentText size={28} onClick={() => setIsResumeOpen(true)} />
+              <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs py-1 px-2 rounded border border-orange-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                Resume
+              </span>
+            </motion.div>
+            <SocialLink
+              href="https://www.linkedin.com/in/pankajtyagi1601/"
+              Icon={FaLinkedin}
+              label="LinkedIn"
+            />
+            <SocialLink
+              href="https://wa.me/8476846209"
+              Icon={FaWhatsapp}
+              label="WhatsApp"
+            />
+            <SocialLink
+              href="https://github.com/pankajtyagi1601"
+              Icon={FaGithub}
+              label="GitHub"
+            />
+            <SocialLink
+              href="https://discord.gg/SGk9PVzz"
+              Icon={FaDiscord}
+              label="Discord"
+            />
+          </div>
         </div>
-        <SocialLink
-          href="https://www.linkedin.com/in/thegoofy-dev/"
-          Icon={FaLinkedin}
-          label="LinkedIn"
-        />
-        <SocialLink
-          href="https://wa.me/8476846209"
-          Icon={FaWhatsapp}
-          label="WhatsApp"
-        />
-        <SocialLink
-          href="https://github.com/thegoofy-dev"
-          Icon={FaGithub}
-          label="GitHub"
-        />
-        <SocialLink
-          href="https://discord.gg/SGk9PVzz"
-          Icon={FaDiscord}
-          label="Discord"
-        />
       </div>
 
       {/* Resume Modal */}
       {isResumeOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center animate-fadeIn">
-          <div className="bg-white p-4 rounded-lg w-[90%] h-[90%] relative transform transition-all duration-300 scale-up-center">
-            <button
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setIsResumeOpen(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+            className="bg-neutral-900 p-4 rounded-2xl w-full max-w-5xl h-[90vh] relative border border-orange-500/20 shadow-2xl"
+          >
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => setIsResumeOpen(false)}
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 transition-colors duration-200"
+              className="absolute top-4 right-4 text-gray-400 hover:text-orange-300 transition-colors duration-200 z-10 bg-neutral-800 rounded-full p-2 border border-orange-500/20"
             >
               ✕
-            </button>
+            </motion.button>
             <iframe
               src={Resume}
               title="Resume"
-              className="w-full h-full"
+              className="w-full h-full rounded-lg"
               style={{ border: "none" }}
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
-    </nav>
+    </motion.nav>
   );
 };
 

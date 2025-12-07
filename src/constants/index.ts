@@ -17,6 +17,7 @@ interface Project {
   description: string;
   technologies: string[];
   link?: string;
+  githubLink?: string;
 }
 
 interface Contact {
@@ -48,32 +49,39 @@ export const EXPERIENCES: Experience[] = [
 
 export const PROJECTS: Project[] = [
   {
-    title: "College Chatbot",
+    title: "Fin Morph AI",
     image: project1,
-    description: "An intelligent chatbot application using Natural Language Processing (NLP) to handle college-related queries and information. Features include intent recognition, contextual responses, and seamless integration with college database.",
-    technologies: ["OpenAI API", "NLP", "IBM Cloud"],
-    link: "https://collegechatbot.tiiny.site/"
+    description:
+      "An AI-powered financial analysis and transformation platform that leverages advanced machine learning algorithms to analyze, morph, and optimize financial data. Features intelligent data processing, predictive analytics, and automated financial insights generation.",
+    technologies: ["AI/ML", "Next.js", "TypeScript", "Vercel"],
+    link: "https://fin-morph-ai.vercel.app/",
+    githubLink: "https://github.com/pankajtyagi1601/finMorphAI",
   },
   {
-    title: "Car Detection System",
+    title: "Brain Notes AI",
     image: project2,
-    description: "Computer vision system for detecting and tracking vehicles using OpenCV.",
-    technologies: ["Python", "OpenCV", "Machine Learning"],
+    description:
+      "An intelligent note-taking application powered by AI that helps users organize, summarize, and enhance their notes. Features include AI-powered summarization, smart categorization, and seamless note management.",
+    technologies: ["AI", "React", "TypeScript", "Vercel"],
+    link: "https://brain-notes-ai.vercel.app/",
+    githubLink: "https://github.com/pankajtyagi1601/Brain-Notes-AI",
+  },
+  {
+    title: "Crypto Track",
+    image: project3,
+    description:
+      "A comprehensive cryptocurrency tracking application that provides real-time price updates, portfolio management, and market analysis. Features include live price tracking, portfolio analytics, and market trends visualization.",
+    technologies: ["React", "TypeScript", "Crypto APIs", "Vercel"],
+    link: "https://crpyto-track.vercel.app/",
+    githubLink: "https://github.com/pankajtyagi1601/crpytoTrack",
   },
   {
     title: "MERN Chat Application",
-    image: project3,
-    description: "Real-time chat application with user authentication and group chat features.",
-    technologies: ["MERN", "JWT", "AuthO", "Socket.io", "Redux"],
-    link: "https://igluz-chatapp.onrender.com/"
-  },
-  {
-    title: "Portfolio Website",
     image: project4,
     description:
-      "A personal portfolio website showcasing projects, skills, and contact information.",
-    technologies: ["React", "TailwindCSS", "Framer Motion", "TypeScript"],
-    link: "#"
+      "Real-time chat application with user authentication and group chat features. Built with the MERN stack, featuring secure authentication, real-time messaging, and scalable architecture.",
+    technologies: ["MERN", "JWT", "Socket.io", "Redux", "Render"],
+    link: "https://igluz-chatapp.onrender.com/",
   },
 ];
 
