@@ -53,7 +53,13 @@ export const PROJECTS: Project[] = [
     image: project1,
     description:
       "An AI-powered financial analysis and transformation platform that leverages advanced machine learning algorithms to analyze, morph, and optimize financial data. Features intelligent data processing, predictive analytics, and automated financial insights generation.",
-    technologies: ["AI/ML", "Next.js", "TypeScript", "Vercel"],
+    technologies: [
+      "Clerk-Auth",
+      "Next.js",
+      "TypeScript",
+      "React Email",
+      "Gemini API",
+    ],
     link: "https://fin-morph-ai.vercel.app/",
     githubLink: "https://github.com/pankajtyagi1601/finMorphAI",
   },
@@ -62,7 +68,7 @@ export const PROJECTS: Project[] = [
     image: project2,
     description:
       "An intelligent note-taking application powered by AI that helps users organize, summarize, and enhance their notes. Features include AI-powered summarization, smart categorization, and seamless note management.",
-    technologies: ["AI", "React", "TypeScript", "Vercel"],
+    technologies: ["AI", "Next.js", "TypeScript", "RAG", "Vercel AI SDK"],
     link: "https://brain-notes-ai.vercel.app/",
     githubLink: "https://github.com/pankajtyagi1601/Brain-Notes-AI",
   },
@@ -71,7 +77,7 @@ export const PROJECTS: Project[] = [
     image: project3,
     description:
       "A comprehensive cryptocurrency tracking application that provides real-time price updates, portfolio management, and market analysis. Features include live price tracking, portfolio analytics, and market trends visualization.",
-    technologies: ["React", "TypeScript", "Crypto APIs", "Vercel"],
+    technologies: ["React.js", "TypeScript", "Crypto APIs"],
     link: "https://crpyto-track.vercel.app/",
     githubLink: "https://github.com/pankajtyagi1601/crpytoTrack",
   },
