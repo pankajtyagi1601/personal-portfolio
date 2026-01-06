@@ -2,6 +2,7 @@ import project1 from "../assets/projects/project-1.jpg";
 import project2 from "../assets/projects/project-2.jpg";
 import project3 from "../assets/projects/project-3.jpg";
 import project4 from "../assets/projects/project-4.jpg";
+import project5 from "../assets/projects/project-5.png";
 
 interface Experience {
   year: string;
@@ -49,6 +50,33 @@ export const EXPERIENCES: Experience[] = [
 
 export const PROJECTS: Project[] = [
   {
+    title: "Sentinel V",
+    image: project5,
+    description:
+      'A resilient microservices monitoring dashboard featuring real-time analytics, JWT security, and "Chaos Engineering" defenses (Rate Limiting & Circuit Breakers).',
+    technologies: [
+      "React(Vite)",
+      "Fastify",
+      "Axios(w/ Interceptors)",
+      "JWT",
+      "Docker",
+      "Vercel(CI/CD)",
+      "Redis",
+      "PostgreSQL",
+    ],
+    link: "https://sentinel-v.vercel.app/",
+    githubLink: "https://github.com/pankajtyagi1601/sentinel-v",
+  },
+  {
+    title: "Brain Notes AI",
+    image: project2,
+    description:
+      "An intelligent note-taking application powered by AI that helps users organize, summarize, and enhance their notes. Features include AI-powered summarization, smart categorization, and seamless note management.",
+    technologies: ["AI", "Next.js", "TypeScript", "RAG", "Vercel AI SDK"],
+    link: "https://brain-notes-ai.vercel.app/",
+    githubLink: "https://github.com/pankajtyagi1601/Brain-Notes-AI",
+  },
+  {
     title: "Fin Morph AI",
     image: project1,
     description:
@@ -64,13 +92,13 @@ export const PROJECTS: Project[] = [
     githubLink: "https://github.com/pankajtyagi1601/finMorphAI",
   },
   {
-    title: "Brain Notes AI",
-    image: project2,
+    title: "MERN Chat Application",
+    image: project4,
     description:
-      "An intelligent note-taking application powered by AI that helps users organize, summarize, and enhance their notes. Features include AI-powered summarization, smart categorization, and seamless note management.",
-    technologies: ["AI", "Next.js", "TypeScript", "RAG", "Vercel AI SDK"],
-    link: "https://brain-notes-ai.vercel.app/",
-    githubLink: "https://github.com/pankajtyagi1601/Brain-Notes-AI",
+      "Real-time chat application with user authentication and group chat features. Built with the MERN stack, featuring secure authentication, real-time messaging, and scalable architecture.",
+    technologies: ["MERN", "JWT", "Socket.io", "Redux", "Render"],
+    link: "https://igluz-chatapp.onrender.com/",
+    githubLink: "https://github.com/pankajtyagi1601/MERN-ChatApp",
   },
   {
     title: "Crypto Track",
@@ -80,15 +108,6 @@ export const PROJECTS: Project[] = [
     technologies: ["React.js", "TypeScript", "Crypto APIs"],
     link: "https://crpyto-track.vercel.app/",
     githubLink: "https://github.com/pankajtyagi1601/crpytoTrack",
-  },
-  {
-    title: "MERN Chat Application",
-    image: project4,
-    description:
-      "Real-time chat application with user authentication and group chat features. Built with the MERN stack, featuring secure authentication, real-time messaging, and scalable architecture.",
-    technologies: ["MERN", "JWT", "Socket.io", "Redux", "Render"],
-    link: "https://igluz-chatapp.onrender.com/",
-    githubLink: "https://github.com/pankajtyagi1601/MERN-ChatApp",
   },
 ];
 

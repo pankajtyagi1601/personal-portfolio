@@ -7,6 +7,7 @@ import { SiNextdotjs } from "react-icons/si";
 import { SiGit } from "react-icons/si";
 import { SiDocker } from "react-icons/si";
 import { SiMysql } from "react-icons/si";
+import { SiPostgresql } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useTheme } from "../contexts/ThemeContext";
@@ -44,6 +45,7 @@ const TECH_ICONS: TechIconProps[] = [
     label: "Tailwind CSS",
     duration: 3.5,
   },
+  { Icon: SiPostgresql, color: "#336791", label: "PostgreSQL", duration: 3.8 },
   { Icon: FaNodeJs, color: "#339933", label: "Node.js", duration: 3.8 },
   { Icon: SiDocker, color: "#2496ED", label: "Docker", duration: 4.1 },
   { Icon: SiMysql, color: "#4479A1", label: "MySQL", duration: 4.4 },
